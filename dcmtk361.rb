@@ -1,7 +1,7 @@
 require 'formula'
 
 # Formula copied from dcmtk formula
-class DcmtkSnapshot < Formula
+class Dcmtk361 < Formula
   homepage 'http://dicom.offis.de/dcmtk.php.en'
   url 'http://dicom.offis.de/download/dcmtk/snapshot/dcmtk-3.6.1_20140617.tar.gz'
   version "3.6.1-20140617"
