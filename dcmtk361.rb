@@ -11,12 +11,15 @@ class Dcmtk361 < Formula
 
   option "with-docs", "Install development libraries/headers and HTML docs"
   option "with-openssl", "Configure DCMTK with support for OpenSSL"
+  option "with-libiconv", "Build with libiconv (updated version available from homebrew-dupes)"
+  option "with-system-libiconv", "If the default libiconv should be used."
 
   depends_on "cmake" => :build
   depends_on "libpng"
   depends_on "libtiff"
   depends_on "doxygen" => :build if build.with? "docs"
   depends_on "openssl" => :optional
+  depends_on "libiconv" => :optional if build.with? "libiconv" unless build.with? "system-libiconv"
 
   conflicts_with "dcmtk", :because => "Differing versions of same package"
 
@@ -26,6 +29,8 @@ class Dcmtk361 < Formula
     args = std_cmake_args
     args << "-DDCMTK_WITH_DOXYGEN=YES" if build.with? "docs"
     args << "-DDCMTK_WITH_OPENSSL=YES" if build.with? "openssl"
+    args << "--with-libiconv" if build.with? "libiconv"
+    args << "--with-libiconvinc=" + Formula["libiconv"].opt_prefix.to_s unless build.with? "system-libiconv"
     args << ".."
 
     mkdir "build" do
